@@ -50,4 +50,15 @@ func TestRocketService(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, "UUID-1", rkt.ID)
 	})
+	t.Run("test delete rocket", func(t *testing.T) {
+		rocketStoreMock := NewMockStore(mockCtrl)
+		id := "UUID-1"
+		rocketStoreMock.
+			EXPECT().
+			DeleteRocket(id).
+			Return(nil)
+		rocketService := New(rocketStoreMock)
+		err := rocketService.DeleteRocket(id)
+		assert.NoError(t, err)
+	})
 }
